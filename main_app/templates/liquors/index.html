@@ -4,14 +4,16 @@
 <h1>Liquor List</h1>
 
 {% for liquor in liquors %}
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ liquor.name }}</span>
-      <p>Spirit: {{ liquor.spirit }}</p>
-      <p>Description: {{ liquor.description }}</p>
-      <p>ABV: {{ liquor.ABV }}</p>
-    </div>
-  </div>
+  <a href="{% url 'detail' liquor.id %}">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ liquor.name }}</span>
+        <p>Spirit: {{ liquor.spirit }}</p>
+        <p>Description: {{ liquor.description }}</p>
+        <p>ABV%: {{ liquor.ABV }}</p>
+      </div>
+    </div>  
+  </a>
 {% endfor %}
 
 {% endblock %}
