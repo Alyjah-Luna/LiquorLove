@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Liquor
+from .forms import SpiritForm
 
 # Create your views here.
 def home(request):
@@ -17,7 +18,19 @@ def liquors_index(request):
 
 def liquors_detail(request, liquor_id):
   liquor = Liquor.objects.get(id=liquor_id)
-  return render(request, 'liquors/detail.html', { 'liquor': liquor })
+  spirit_form = SpiritForm()
+  return render(request, 'liquors/detail.html', {
+      'liquor': liquor,
+       'spirit_form': spirit_form 
+       })
+
+def add_spirit(request, liquor_id):
+  form = SpiritForm(request.POST)
+  if form.is_valid():
+    new_spirit = form.save(commit=False)
+    new_spirit.liquor_id = liquor_id
+    new_spirit.save()
+  return redirect('detail', liquor_id=liquor_id)
 
 class LiquorCreate(CreateView):
   model = Liquor
@@ -25,7 +38,7 @@ class LiquorCreate(CreateView):
 
 class LiquorUpdate(UpdateView):
   model = Liquor
-  fields = ['spirit', 'description', 'ABV']
+  fields = ['description', 'ABV']
 
 class LiquorDelete(DeleteView):
   model = Liquor
