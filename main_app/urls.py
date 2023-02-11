@@ -10,4 +10,6 @@ urlpatterns = [
     path('liquors/<int:pk>/update/', views.LiquorUpdate.as_view(), name='liquors_update'),
     path('liquors/<int:pk>/delete/', views.LiquorDelete.as_view(), name='liquors_delete'),
     path('liquors/<int:liquor_id>/add_spirit/', views.add_spirit, name='add_spirit'),
+    path('liquors/<int:liquor_id>/assoc_cocktail/<int:cocktail_id>/', views.assoc_cocktail, name='assoc_cocktail'),
+    path('liquors/<int:liquor_id>/unassoc_cocktail/<int:cocktail_id>/', views.unassoc_cocktail, name='unassoc_cocktail'),
 ]

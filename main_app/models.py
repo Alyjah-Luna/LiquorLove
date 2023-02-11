@@ -6,16 +6,27 @@ NAMES = (
     ('G', 'Gin'),
     ('M', 'Mezcal'),
     ('R', 'Rum'),
-    ('M', 'Mezcal'),
     ('T', 'Tequila'),
-    ('V', 'Vodka')
+    ('V', 'Vodka'),
+    ('W', 'Whiskey')
 )
 
 # Create your models here.
+class Cocktail(models.Model):
+  name = models.CharField(max_length=50)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('cocktails_detail', kwargs={'pk': self.id})
+
+
 class Liquor(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=150)
     ABV = models.IntegerField()
+    cocktails = models.ManyToManyField(Cocktail)
 
     def __str__(self):
         return self.name
